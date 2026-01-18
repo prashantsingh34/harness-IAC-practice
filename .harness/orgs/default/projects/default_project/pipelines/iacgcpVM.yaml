@@ -39,10 +39,10 @@ pipeline:
                     shell: Sh
                     command: |-
                       # 1. Create the key file from the Harness Secret
-                      echo "<+secrets.getValue("gcp_service_key")>" > /harness/gcp-key.json
+                      echo "<+secrets.getValue("gcp_service_key")>" > gcp-key.json
 
                       # 2. Tell Terraform where the key is
-                      export GOOGLE_APPLICATION_CREDENTIALS=/harness/gcp-key.json
+                      export GOOGLE_APPLICATION_CREDENTIALS=gcp-key.json
                       terraform init
         variables:
           - name: state_file_bucket
