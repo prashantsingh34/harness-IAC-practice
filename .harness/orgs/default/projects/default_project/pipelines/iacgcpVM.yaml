@@ -63,8 +63,8 @@ pipeline:
                       export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json
                       terraform plan
                     envVariables:
-                      state_file_bucket: <+stage.variables.state_file_bucket>
-                      project_id: <+stage.variables.project_id>
+                      TF_VAR_state_file_bucket: <+stage.variables.state_file_bucket>
+                      TF_VAR_project_id: <+stage.variables.project_id>
         variables:
           - name: state_file_bucket
             type: String
