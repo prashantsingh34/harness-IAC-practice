@@ -44,11 +44,11 @@ pipeline:
 
                       export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json
 
-                      echo "Initializing for project: $PROJECT"
-                      terraform init -backend-config="bucket=$BUCKET"
+                      echo "Initializing for project: $project_id"
+                      terraform init -backend-config="bucket=$state_file_bucket"
                     envVariables:
-                      BUCKET: <+stage.variables.state_file_bucket>
-                      PROJECT: <+stage.variables.project_id>
+                      state_file_bucket: <+stage.variables.state_file_bucket>
+                      project_id: <+stage.variables.project_id>
               - step:
                   type: Run
                   name: plan
@@ -62,6 +62,9 @@ pipeline:
 
                       export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json
                       terraform plan
+                    envVariables:
+                      state_file_bucket: <+stage.variables.state_file_bucket>
+                      project_id: <+stage.variables.project_id>
         variables:
           - name: state_file_bucket
             type: String
