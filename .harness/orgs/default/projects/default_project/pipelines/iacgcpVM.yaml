@@ -38,7 +38,10 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-                      echo '<+secrets.getValue("gcp_service_key")>' > /tmp/gcp-key.json
+                      cat <<EOF > /tmp/gcp-key.json
+                      <+secrets.getValue("gcp_service_key")>
+                      EOF
+
                       export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json
 
                       echo "Initializing for project: $PROJECT"
