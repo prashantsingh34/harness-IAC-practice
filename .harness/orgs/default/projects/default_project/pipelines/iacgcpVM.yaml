@@ -17,7 +17,6 @@ pipeline:
         description: ""
         type: CI
         spec:
-          connectorRef: gcp_provider
           cloneCodebase: true
           caching:
             enabled: true
@@ -39,21 +38,22 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-                      echo "Initializing for project: $PROJECT"
-                      terraform init -backend-config="bucket=$BUCKET"
-                    envVariables:
-                      BUCKET: <+stage.variables.state_file_bucket>
-                      PROJECT: <+stage.variables.project_id>
+                      # 1. Create the key file from the Harness Secret
+                      echo "<+secrets.getValue("gcp_service_key")>" > /harness/gcp-key.json
+
+                      # 2. Tell Terraform where the key is
+                      export GOOGLE_APPLICATION_CREDENTIALS=/harness/gcp-key.json
+                      terraform init
         variables:
           - name: state_file_bucket
             type: String
             description: ""
-            required: false
+            required: true
             value: prashant-8874
           - name: project_id
             type: String
             description: ""
-            required: false
+            required: true
             value: elite-totality-418717
   delegateSelectors:
     - docker-delegate
