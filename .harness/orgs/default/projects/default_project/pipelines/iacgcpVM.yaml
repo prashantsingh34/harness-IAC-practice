@@ -40,3 +40,14 @@ pipeline:
                     command: terraform init
   delegateSelectors:
     - docker-delegate
+  variables:
+    - name: state_file_bucket
+      type: String
+      description: ""
+      required: true
+      value: prashant-8874
+    - name: project_id
+      type: String
+      description: ""
+      required: true
+      value: elite-totality-418717
