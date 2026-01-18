@@ -1,0 +1,42 @@
+pipeline:
+  name: iac-gcp-VM
+  identifier: iacgcpVM
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: Githubconnector
+        repoName: harness-IAC-practice
+        build: <+input>
+  stages:
+    - stage:
+        name: terraform init
+        identifier: terraform_init
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: terraform init
+  delegateSelectors:
+    - docker-delegate
