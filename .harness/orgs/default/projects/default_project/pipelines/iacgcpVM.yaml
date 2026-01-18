@@ -37,12 +37,12 @@ pipeline:
                   identifier: Run_1
                   spec:
                     shell: Sh
+                    command: |-
+                      echo "Initializing for project: $PROJECT"
+                      terraform init -backend-config="bucket=$BUCKET"
                     envVariables:
                       BUCKET: <+stage.variables.state_file_bucket>
                       PROJECT: <+stage.variables.project_id>
-                    command: |
-                      echo "Initializing for project: $PROJECT"
-                      terraform init -backend-config="bucket=$BUCKET"
         variables:
           - name: state_file_bucket
             type: String
