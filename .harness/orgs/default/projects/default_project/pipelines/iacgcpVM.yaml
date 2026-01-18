@@ -43,7 +43,11 @@ pipeline:
 
                       # 2. Tell Terraform where the key is
                       export GOOGLE_APPLICATION_CREDENTIALS=gcp-key.json
-                      terraform init
+                      echo "Initializing for project: $PROJECT"
+                      terraform init -backend-config="bucket=$BUCKET"
+                    envVariables:
+                      BUCKET: <+stage.variables.state_file_bucket>
+                      PROJECT: <+stage.variables.project_id>
         variables:
           - name: state_file_bucket
             type: String
