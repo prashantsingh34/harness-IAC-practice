@@ -17,6 +17,7 @@ pipeline:
         description: ""
         type: CI
         spec:
+          connectorRef: gcp_provider
           cloneCodebase: true
           caching:
             enabled: true
