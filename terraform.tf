@@ -2,10 +2,10 @@ terraform {
   required_version = ">= 1.0.0"
 
   # 1. State file storage in GCP
-  backend "gcs" {
-    bucket  = var.state_file_bucket # Replace with your existing GCP bucket name
-    prefix  = "terraform/state"
-  }
+#   backend "gcs" {
+#     bucket  = var.state_file_bucket # Replace with your existing GCP bucket name
+#     prefix  = "terraform/state"
+#   }
 
   required_providers {
     google = {
