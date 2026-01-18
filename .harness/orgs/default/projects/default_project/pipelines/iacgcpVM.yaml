@@ -38,8 +38,9 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
+                      echo '<+secrets.getValue("gcp_service_key")>' > /tmp/gcp-key.json
+                      export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json
 
-                      export GOOGLE_APPLICATION_CREDENTIALS=<+secrets.getValue("gcp_service_key")>"
                       echo "Initializing for project: $PROJECT"
                       terraform init -backend-config="bucket=$BUCKET"
                     envVariables:
