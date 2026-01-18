@@ -55,7 +55,10 @@ pipeline:
                   identifier: plan
                   spec:
                     shell: Sh
-                    command: terraform plan
+                    command: |-
+
+                      export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json
+                      terraform plan
         variables:
           - name: state_file_bucket
             type: String
