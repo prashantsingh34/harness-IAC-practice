@@ -65,6 +65,16 @@ pipeline:
                     envVariables:
                       TF_VAR_state_file_bucket: <+stage.variables.state_file_bucket>
                       TF_VAR_project_id: <+stage.variables.project_id>
+              - step:
+                  type: Run
+                  name: Terraform Apply
+                  identifier: terraform_apply
+                  spec:
+                    shell: Sh
+                    command: terraform apply -input=false -auto-approve
+                    envVariables:
+                      TF_VAR_project_id: <+stage.variables.project_id>
+                      TF_VAR_state_file_bucket: <+stage.variables.state_file_bucket>
         variables:
           - name: state_file_bucket
             type: String
