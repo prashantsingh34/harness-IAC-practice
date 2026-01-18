@@ -56,6 +56,9 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
+                      cat <<EOF > /tmp/gcp-key.json
+                      <+secrets.getValue("gcp_service_key")>
+                      EOF
 
                       export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json
                       terraform plan
