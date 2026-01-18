@@ -33,7 +33,7 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Run_1
+                  name: init
                   identifier: Run_1
                   spec:
                     shell: Sh
@@ -49,6 +49,13 @@ pipeline:
                     envVariables:
                       BUCKET: <+stage.variables.state_file_bucket>
                       PROJECT: <+stage.variables.project_id>
+              - step:
+                  type: Run
+                  name: plan
+                  identifier: plan
+                  spec:
+                    shell: Sh
+                    command: terraform plan
         variables:
           - name: state_file_bucket
             type: String
